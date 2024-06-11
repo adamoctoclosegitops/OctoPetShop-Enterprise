@@ -75,7 +75,7 @@ jobs:
             octopussamples/octopetshop-database-enterprise
           
   Create-Octopus-Release:
-      if: false
+
       name: 🐙Create Release
       needs: [build, Push-build-information]
       runs-on: ubuntu-latest
