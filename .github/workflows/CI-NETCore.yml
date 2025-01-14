@@ -30,11 +30,6 @@ jobs:
     - name: Install dependencies
       run: dotnet restore
     
-    - name: Install ICU packages
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y libicu-dev
-    
     - name: Build
       run: dotnet build --configuration Release --no-restore
     
@@ -65,6 +60,8 @@ jobs:
     
     - name: Package OctoPetShopDatabase
       run: |
+        sudo apt-get update
+        sudo apt-get install -y libicu-dev
         octo pack --id="OctoPetShop.Database" --format="Zip" --version="${{ steps.version-generator.outputs.version }}" --basePath="$GITHUB_WORKSPACE/artifacts/OctopusSamples.OctoPetShop.Database" --outFolder="$GITHUB_WORKSPACE/artifacts"
     
     - name: Package OctoPetShopWeb
