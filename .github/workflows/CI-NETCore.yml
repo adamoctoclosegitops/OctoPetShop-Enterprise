@@ -77,7 +77,7 @@ jobs:
         octo pack --id="OctoPetShop.ShoppingCartService" --format="Zip" --version="${{ steps.version-generator.outputs.version }}" --basePath="$GITHUB_WORKSPACE/artifacts/OctopusSamples.OctoPetshop.ShoppingCartService" --outFolder="$GITHUB_WORKSPACE/artifacts"
     
     - name: Push OctoPetShop Packages
-      uses: OctopusDeploy/push-package-action@v1.1.1
+      uses: OctopusDeploy/push-package-action@v3.2.3
       with:
         api_key: ${{ secrets.OCTOPUS_API_KEY }}
         server: ${{ secrets.OCTOPUS_SERVER_URL }}
