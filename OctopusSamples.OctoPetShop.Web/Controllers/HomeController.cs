@@ -77,6 +77,7 @@ namespace OctopusSamples.OctoPetShop.Controllers
         public IActionResult Checkout(ShoppingCartViewModel cart)
         {
             // TODO: Redirect to Order Confirmation / Thank you page 
+            //shoppingCartViewModel.CartItems.Clear(true);
             shoppingCartViewModel.CartItems.Clear();
 
             return RedirectToAction("Confirmation");
