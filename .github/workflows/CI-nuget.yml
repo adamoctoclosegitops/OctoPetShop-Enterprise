@@ -62,4 +62,4 @@ jobs:
             --api-key ${{ secrets.GH_PACKAGES_TOKEN }} \
             --source "github" \
             --skip-duplicate
-        don
+        done
