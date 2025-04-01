@@ -44,16 +44,16 @@ jobs:
       run: mkdir ./artifacts
 
     - name: Pack OctoPetShopDatabase
-      run: dotnet pack OctopusSamples.OctoPetShop.Database/OctopusSamples.OctoPetShop.Database.csproj --configuration Release --output ./artifacts --version "${{ steps.version-generator.outputs.version }}"
+      run: dotnet pack OctopusSamples.OctoPetShop.Database/OctopusSamples.OctoPetShop.Database.csproj --configuration Release --output ./artifacts -p:PackageVersion="${{ steps.version-generator.outputs.version }}"
 
     - name: Pack OctoPetShopWeb
-      run: dotnet pack OctopusSamples.OctoPetShop.Web/OctopusSamples.OctoPetShop.Web.csproj --configuration Release --output ./artifacts --version "${{ steps.version-generator.outputs.version }}"
+      run: dotnet pack OctopusSamples.OctoPetShop.Web/OctopusSamples.OctoPetShop.Web.csproj --configuration Release --output ./artifacts -p:PackageVersion="${{ steps.version-generator.outputs.version }}"
 
     - name: Pack OctoPetShopProductService
-      run: dotnet pack OctopusSamples.OctoPetShop.ProductService/OctopusSamples.OctoPetShop.ProductService.csproj --configuration Release --output ./artifacts --version "${{ steps.version-generator.outputs.version }}"
+      run: dotnet pack OctopusSamples.OctoPetShop.ProductService/OctopusSamples.OctoPetShop.ProductService.csproj --configuration Release --output ./artifacts -p:PackageVersion="${{ steps.version-generator.outputs.version }}"
 
     - name: Pack OctoPetShopShoppingCartService
-      run: dotnet pack OctopusSamples.OctoPetShop.ShoppingCartService/OctopusSamples.OctoPetShop.ShoppingCartService.csproj --configuration Release --output ./artifacts --version "${{ steps.version-generator.outputs.version }}"
+      run: dotnet pack OctopusSamples.OctoPetShop.ShoppingCartService/OctopusSamples.OctoPetShop.ShoppingCartService.csproj --configuration Release --output ./artifacts -p:PackageVersion="${{ steps.version-generator.outputs.version }}"
 
     - name: Push packages to GitHub Packages
       run: |
@@ -62,4 +62,4 @@ jobs:
             --api-key ${{ secrets.GH_PACKAGES_TOKEN }} \
             --source "github" \
             --skip-duplicate
-        done
+        don
