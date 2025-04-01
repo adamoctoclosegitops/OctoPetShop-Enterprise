@@ -1,0 +1,58 @@
+name: CI - Nuget Packages GitHub Repo
+
+on:
+  push:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+jobs:
+
+  build:
+
+    name: Build & Push .NET packages
+    runs-on: ubuntu-latest
+
+    outputs:
+      version: ${{ steps.version-generator.outputs.version }}
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Set Version Number
+      id: version-generator
+      run: echo "version=$(date +'%Y.%m.%d').$GITHUB_RUN_NUMBER" >> $GITHUB_OUTPUT
+
+    - name: Setup .NET 6
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: '6.0.406'
+
+    - name: Authenticate with GitHub Packages
+      run: |
+        dotnet nuget add source \
+          --username ${{ github.actor }} \
+          --password ${{ secrets.GH_PACKAGES_TOKEN }} \
+          --store-password-in-clear-text \
+          --name github "https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json"
+
+    - name: Restore dependencies
+      run: dotnet restore
+
+    - name: Build projects
+      run: dotnet build --configuration Release --no-restore
+
+    - name: Pack projects
+      run: |
+        dotnet pack OctopusSamples.OctoPetShop.Database/OctopusSamples.OctoPetShop.Database.csproj --configuration Release --output ./artifacts --version-suffix "${{ steps.version-generator.outputs.version }}"
+        dotnet pack OctopusSamples.OctoPetShop.Web/OctopusSamples.OctoPetShop.Web.csproj --configuration Release --output ./artifacts --version-suffix "${{ steps.version-generator.outputs.version }}"
+        dotnet pack OctopusSamples.OctoPetShop.ProductService/OctopusSamples.OctoPetShop.ProductService.csproj --configuration Release --output ./artifacts --version-suffix "${{ steps.version-generator.outputs.version }}"
+        dotnet pack OctopusSamples.OctoPetShop.ShoppingCartService/OctopusSamples.OctoPetShop.ShoppingCartService.csproj --configuration Release --output ./artifacts --version-suffix "${{ steps.version-generator.outputs.version }}"
+
+    - name: Push packages to GitHub Packages
+      run: |
+        for pkg in ./artifacts/*.nupkg; do
+          dotnet nuget push "$pkg" \
+            --api-key ${{ secrets.GH_PACKAGES_TOKEN }} \
+            --source "github" \
+            --skip-duplicate
+        done
