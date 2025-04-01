@@ -32,7 +32,7 @@ jobs:
           --username ${{ github.actor }} \
           --password ${{ secrets.GH_PACKAGES_TOKEN }} \
           --store-password-in-clear-text \
-          --name github "https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json"
+          --name github "https://nuget.pkg.github.com/JChatmasOctopus/index.json"
 
     - name: Restore dependencies
       run: dotnet restore
