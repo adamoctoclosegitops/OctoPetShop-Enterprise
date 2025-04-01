@@ -43,10 +43,10 @@ jobs:
 
     - name: Pack projects
       run: |
-        dotnet pack OctopusSamples.OctoPetShop.Database/OctopusSamples.OctoPetShop.Database.csproj --configuration Release --output ./artifacts --version-suffix "${{ steps.version-generator.outputs.version }}"
-        dotnet pack OctopusSamples.OctoPetShop.Web/OctopusSamples.OctoPetShop.Web.csproj --configuration Release --output ./artifacts --version-suffix "${{ steps.version-generator.outputs.version }}"
-        dotnet pack OctopusSamples.OctoPetShop.ProductService/OctopusSamples.OctoPetShop.ProductService.csproj --configuration Release --output ./artifacts --version-suffix "${{ steps.version-generator.outputs.version }}"
-        dotnet pack OctopusSamples.OctoPetShop.ShoppingCartService/OctopusSamples.OctoPetShop.ShoppingCartService.csproj --configuration Release --output ./artifacts --version-suffix "${{ steps.version-generator.outputs.version }}"
+        dotnet pack OctopusSamples.OctoPetShop.Database/OctopusSamples.OctoPetShop.Database.csproj --configuration Release --output ./artifacts --version "${{ steps.version-generator.outputs.version }}"
+        dotnet pack OctopusSamples.OctoPetShop.Web/OctopusSamples.OctoPetShop.Web.csproj --configuration Release --output ./artifacts --version "${{ steps.version-generator.outputs.version }}"
+        dotnet pack OctopusSamples.OctoPetShop.ProductService/OctopusSamples.OctoPetShop.ProductService.csproj --configuration Release --output ./artifacts --version "${{ steps.version-generator.outputs.version }}"
+        dotnet pack OctopusSamples.OctoPetShop.ShoppingCartService/OctopusSamples.OctoPetShop.ShoppingCartService.csproj --configuration Release --output ./artifacts --version "${{ steps.version-generator.outputs.version }}"
 
     - name: Push packages to GitHub Packages
       run: |
