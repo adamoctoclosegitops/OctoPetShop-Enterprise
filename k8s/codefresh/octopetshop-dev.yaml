@@ -4,6 +4,8 @@ metadata:
   name: octopetshop-dev
   finalizers:
     - resources-finalizer.argocd.argoproj.io/foreground
+  annotations:
+    codefresh.io/product: octopetshop
 spec:
   project: default
   destination:
