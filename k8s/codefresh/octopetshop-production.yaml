@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: octopetshop-test
+  name: octopetshop-production
   finalizers:
     - resources-finalizer.argocd.argoproj.io/foreground
   annotations:
@@ -12,9 +12,9 @@ spec:
     name: in-cluster
     namespace: octopetshop-production
   source:
-    path: k8s/sroduction
+    path: k8s/production
     repoURL: https://github.com/adamoctoclosegitops/OctoPetShop-Enterprise.git
-    targetRevision: main
+    targetRevision: HEAD
   syncPolicy:
     automated:
       prune: true
